@@ -2,7 +2,7 @@ package com.straumann.domain.valueobject;
 
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -11,7 +11,7 @@ import lombok.Getter;
  *
  */
 @Getter
-@AllArgsConstructor
+@Builder
 public class PhoneNumber {
 	private final String countryCode;
 	private final String areaCode;

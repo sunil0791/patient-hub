@@ -5,7 +5,7 @@ package com.straumann.domain.valueobject;
 
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -13,7 +13,7 @@ import lombok.Getter;
  *
  */
 @Getter
-@AllArgsConstructor
+@Builder
 public class Address {
 	private final String street;
 	private final String city;

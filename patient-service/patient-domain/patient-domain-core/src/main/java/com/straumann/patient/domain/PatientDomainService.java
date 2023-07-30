@@ -1,8 +1,6 @@
 package com.straumann.patient.domain;
 
-import com.straumann.domain.event.publisher.DomainEventPublisher;
 import com.straumann.patient.domain.entity.Patient;
-import com.straumann.patient.domain.event.PatientCreatedEvent;
 
 /**
  * 
@@ -11,7 +9,6 @@ import com.straumann.patient.domain.event.PatientCreatedEvent;
  */
 public interface PatientDomainService {
 
-	PatientCreatedEvent validateAndInitiatePatient(Patient patient,
-			DomainEventPublisher<PatientCreatedEvent> patientCreatedEventDomainEventPublisher);
+	Patient validateAndInitiatePatient(Patient patient);
 
 }

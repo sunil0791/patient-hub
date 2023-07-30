@@ -3,7 +3,7 @@
  */
 package com.straumann.domain.valueobject;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 /**
@@ -11,7 +11,7 @@ import lombok.Getter;
  *
  */
 @Getter
-@AllArgsConstructor
+@Builder
 public class ContactInformation {
 	private PhoneNumber phoneNumber;
 	private Address address;

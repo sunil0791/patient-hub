@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.straumann.patient.domain.entity.Patient;
+import com.straumann.patient.service.domain.dto.PatientDTO;
 import com.straumann.patient.service.domain.ports.input.service.PatientApplicationService;
 
 import jakarta.validation.Valid;
@@ -35,22 +35,22 @@ public class PatientController {
 	}
 
 	@GetMapping("/patients")
-	public List<Patient> retrieveAllPatients() {
+	public List<PatientDTO> retrieveAllPatients() {
 		return patientApplicationService.getAllPatients();
 	}
 
 	@PostMapping("/patients")
-	public ResponseEntity<Patient> createPatient(@Valid @RequestBody Patient patient) {
-		Patient savedUser = patientApplicationService.createPatient(patient);
+	public ResponseEntity<PatientDTO> createPatient(@Valid @RequestBody PatientDTO patient) {
+		PatientDTO savedUser = patientApplicationService.createPatient(patient);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(savedUser.getId())
 				.toUri();
 		return ResponseEntity.created(location).build();
 	}
 
 	@GetMapping("/patients/{id}")
-	public EntityModel<Patient> retrievePatient(@PathVariable Long id) {
-		Patient patient = patientApplicationService.getPatientById(id);
-		EntityModel<Patient> entityModel = EntityModel.of(patient);
+	public EntityModel<PatientDTO> retrievePatient(@PathVariable String id) {
+		PatientDTO patient = patientApplicationService.getPatientById(id);
+		EntityModel<PatientDTO> entityModel = EntityModel.of(patient);
 		WebMvcLinkBuilder link = WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllPatients());
 		entityModel.add(link.withRel("all-patients"));
@@ -58,9 +58,9 @@ public class PatientController {
 	}
 
 	@PutMapping("/patients/{id}")
-	public EntityModel<Patient> updatePatient(@Valid @RequestBody Patient patient) {
+	public EntityModel<PatientDTO> updatePatient(@Valid @RequestBody PatientDTO patient) {
 		patientApplicationService.updatePatient(patient);
-		EntityModel<Patient> entityModel = EntityModel.of(patient);
+		EntityModel<PatientDTO> entityModel = EntityModel.of(patient);
 		WebMvcLinkBuilder link = WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllPatients());
 		entityModel.add(link.withRel("all-patients"));
@@ -68,7 +68,7 @@ public class PatientController {
 	}
 
 	@DeleteMapping("/patients/{id}")
-	public void deletePatient(@PathVariable Long id) {
+	public void deletePatient(@PathVariable String id) {
 		patientApplicationService.deletePatient(id);
 	}
 

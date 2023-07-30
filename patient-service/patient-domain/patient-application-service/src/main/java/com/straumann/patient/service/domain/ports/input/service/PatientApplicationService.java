@@ -5,7 +5,7 @@ package com.straumann.patient.service.domain.ports.input.service;
 
 import java.util.List;
 
-import com.straumann.patient.domain.entity.Patient;
+import com.straumann.patient.service.domain.dto.PatientDTO;
 
 /**
  * @author Sunil Anjanappa
@@ -13,13 +13,13 @@ import com.straumann.patient.domain.entity.Patient;
  */
 public interface PatientApplicationService {
 
-	Patient createPatient(Patient patient);
+	PatientDTO createPatient(PatientDTO patientDTO);
 
-	Patient updatePatient(Patient patient);
+	PatientDTO updatePatient(PatientDTO patientDTO);
 
-	void deletePatient(Long id);
+	void deletePatient(String id);
 
-	Patient getPatientById(Long id);
+	PatientDTO getPatientById(String id);
 
-	List<Patient> getAllPatients();
+	List<PatientDTO> getAllPatients();
 }
