@@ -1,0 +1,15 @@
+server:
+  port: 8181
+
+logging:
+  level:
+    com.straumann: DEBUG
+
+
+spring:
+  data:
+    mongodb:
+      database: patientDB
+      auto-index-creation: true
+      uri: mongodb+srv://admin:sQdWLiD4NYGeNath@cluster1.uwmso6d.mongodb.net/
+

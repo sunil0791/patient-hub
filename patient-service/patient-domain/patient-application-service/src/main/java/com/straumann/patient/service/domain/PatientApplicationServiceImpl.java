@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package com.straumann.patient.service.domain.ports.input.service;
+package com.straumann.patient.service.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -30,6 +29,7 @@ import com.straumann.patient.domain.entity.Patient;
 import com.straumann.patient.service.domain.dto.PatientDTO;
 import com.straumann.patient.service.domain.exception.PatientNotFoundException;
 import com.straumann.patient.service.domain.mapper.PatientDataMapper;
+import com.straumann.patient.service.domain.ports.input.service.PatientApplicationService;
 import com.straumann.patient.service.domain.ports.output.repo.PatientRepository;
 
 /**
@@ -85,15 +85,11 @@ public class PatientApplicationServiceImpl implements PatientApplicationService 
 
 	@Override
 	public List<PatientDTO> getAllPatients() {
-		Optional<List<Patient>> patientOptional = patientRepository.findAll();
-		if (patientOptional.isEmpty()) {
+		List<Patient> patientList = patientRepository.findAll();
+		if (patientList == null || patientList.isEmpty()) {
 			throw new PatientNotFoundException("No Patient Exist");
 		}
-		List<PatientDTO> ret = new ArrayList<>();
-		for (Patient patient : patientOptional.get()) {
-			ret.add(patientDataMapper.patientToPatientDto(patient));
-		}
-		return ret;
+		return patientList.stream().map(patientDataMapper::patientToPatientDto).toList();
 	}
 
 }

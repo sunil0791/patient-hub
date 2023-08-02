@@ -19,7 +19,6 @@ package com.straumann.patient.domain.entity;
 import java.util.UUID;
 
 import com.straumann.domain.entity.AggregateRoot;
-import com.straumann.domain.valueobject.Age;
 import com.straumann.domain.valueobject.ContactInformation;
 import com.straumann.domain.valueobject.PatientID;
 
@@ -36,8 +35,8 @@ public class Patient extends AggregateRoot<PatientID> {
 	private String firstName;
 	private String middleName;
 	private String lastName;
-	private Age age;
 	private ContactInformation contactInformation;
+	private String failureMessages;
 
 	public void initializeOrder() {
 		setId(new PatientID(UUID.randomUUID()));

@@ -12,7 +12,7 @@ public interface PatientRepository {
 
 	Optional<Patient> findById(PatientID orderId);
 
-	Optional<List<Patient>> findAll();
+	List<Patient> findAll();
 
 	void delete(PatientID orderId);
 
