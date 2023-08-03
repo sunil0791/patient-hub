@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,6 +56,7 @@ public class PatientApplicationServiceImpl implements PatientApplicationService 
 
 	@Override
 	@Transactional
+	@CachePut(value = "patients", key = "#result.id")
 	public PatientDTO createPatient(PatientDTO patientDTO) {
 		Patient patient = patientDataMapper.createPatientDtoToPatient(patientDTO);
 		patientDomainService.validateAndInitiatePatient(patient);
@@ -63,6 +66,7 @@ public class PatientApplicationServiceImpl implements PatientApplicationService 
 
 	@Override
 	@Transactional
+	@CachePut(value = "patients", key = "#result.id")
 	public PatientDTO updatePatient(PatientDTO patientDTO) {
 		Patient patient = patientDataMapper.createPatientDtoToPatient(patientDTO);
 		Patient savedPatient = patientRepository.save(patient);
@@ -75,6 +79,7 @@ public class PatientApplicationServiceImpl implements PatientApplicationService 
 	}
 
 	@Override
+    @Cacheable(value = "patients", key = "#id")
 	public PatientDTO getPatientById(String id) {
 		Optional<Patient> patientOptional = patientRepository.findById(new PatientID(UUID.fromString(id)));
 		if (patientOptional.isEmpty()) {

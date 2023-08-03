@@ -1,5 +1,6 @@
 package com.straumann.patient.service.domain.mapper;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
@@ -15,24 +16,28 @@ import com.straumann.patient.service.domain.dto.PatientDTO;
 public class PatientDataMapper {
 
 	public Patient createPatientDtoToPatient(PatientDTO patientDTO) {
-		Patient patient = Patient.builder().contactInformation(ContactInformation.builder()
-				.address(Address.builder().city(patientDTO.getCity()).country(patientDTO.getCountry())
-						.postalCode(patientDTO.getPostalCode()).state(patientDTO.getState())
-						.street(patientDTO.getStreet()).build())
-				.phoneNumber(PhoneNumber.builder().areaCode(patientDTO.getAreaCode())
-						.countryCode(patientDTO.getCountryCode()).number(patientDTO.getNumber()).build())
-				.build()).build();
-		patient.setId(new PatientID(UUID.fromString(patientDTO.getId())));
+		Optional<String> id = Optional.ofNullable(patientDTO.getId());
+		Patient patient = Patient.builder()
+				.contactInformation(ContactInformation.builder()
+						.address(Address.builder().city(patientDTO.getCity()).country(patientDTO.getCountry())
+								.postalCode(patientDTO.getPostalCode()).state(patientDTO.getState())
+								.street(patientDTO.getStreet()).build())
+						.phoneNumber(PhoneNumber.fromString(patientDTO.getPhoneNumber()))
+						.build())
+				.firstName(patientDTO.getFirstName()).lastName(patientDTO.getLastName())
+				.middleName(patientDTO.getMiddleName()).build();
+		if (id.isPresent()) {
+			patient.setId(new PatientID(UUID.fromString(id.get())));
+		}
 		return patient;
 	}
 
 	public PatientDTO patientToPatientDto(Patient patient) {
 		PhoneNumber phoneNumber = patient.getContactInformation().getPhoneNumber();
 		Address address = patient.getContactInformation().getAddress();
-		return PatientDTO.builder().areaCode(phoneNumber.getAreaCode()).city(address.getCity())
-				.country(address.getCountry()).countryCode(phoneNumber.getCountryCode())
-				.firstName(patient.getFirstName()).lastName(patient.getLastName()).middleName(patient.getMiddleName())
-				.number(phoneNumber.getNumber()).postalCode(address.getPostalCode()).state(address.getState())
-				.street(address.getStreet()).id(patient.getId().getValue().toString()).build();
+		return PatientDTO.builder().phoneNumber(phoneNumber.toString()).firstName(patient.getFirstName())
+				.lastName(patient.getLastName()).middleName(patient.getMiddleName()).postalCode(address.getPostalCode())
+				.state(address.getState()).street(address.getStreet()).id(patient.getId().getValue().toString())
+				.build();
 	}
 }

@@ -13,7 +13,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ContactInformation {
-	private PhoneNumber phoneNumber;
-	private Address address;
+	private final PhoneNumber phoneNumber;
+	private final Address address;
 	// Other fields and methods
 }
