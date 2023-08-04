@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: patient-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: patient-service
+  template:
+    metadata:
+      labels:
+        app: patient-service
+    spec:
+      containers:
+        - name: patient-service
+          image: patient-service:latest
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+            - name: DATABASE_URI
+              value: mongodb+srv://admin:sQdWLiD4NYGeNath@cluster1.uwmso6d.mongodb.net/
+          ports:
+            - containerPort: 8080

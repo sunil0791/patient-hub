@@ -5,11 +5,18 @@ logging:
   level:
     com.straumann: DEBUG
 
-
+spring:  
+  application:
+    name: patient-service
+  
+  profiles:
+    active:
+      ${SPRING_PROFILES_ACTIVE}
+      
 spring:
   data:
     mongodb:
       database: patientDB
       auto-index-creation: true
-      uri: mongodb+srv://admin:sQdWLiD4NYGeNath@cluster1.uwmso6d.mongodb.net/
+      uri: ${DATABASE_URI}
 
