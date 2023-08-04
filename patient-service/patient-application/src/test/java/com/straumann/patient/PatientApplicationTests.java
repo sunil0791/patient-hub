@@ -19,12 +19,12 @@ public class PatientApplicationTests {
 	ResultActions action;
 
 	@When("the client calls \\/patients")
-	public void the_client_calls_getCategory() throws Exception {
+	public void the_client_calls_getPatient() throws Exception {
 		action = mvc.perform(get("/patients").contentType(MediaType.APPLICATION_JSON));
 	}
 
-	@Then("the client receives status code of {int} for category")
-	public void the_client_receives_status_code_of_for_category(Integer int1) throws Exception {
+	@Then("the client receives status code of {int}")
+	public void the_client_receives_status_code_of_for_patient(Integer int1) throws Exception {
 		action.andExpect(status().isOk());
 	}
 }
