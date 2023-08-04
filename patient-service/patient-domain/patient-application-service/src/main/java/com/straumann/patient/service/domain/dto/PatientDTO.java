@@ -21,7 +21,9 @@ public class PatientDTO implements Serializable {
 	private final String firstName;
 	private final String middleName;
 	private final String lastName;
-	private final String phoneNumber;
+	private final String countryCode;
+	private final String areaCode;
+	private final String number;
 	private final String street;
 	private final String city;
 	private final String state;

@@ -1,4 +1,4 @@
-package com.straumann.patient.config;
+package com.straumann.patient;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
